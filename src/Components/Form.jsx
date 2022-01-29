@@ -10,7 +10,7 @@ const Form = () => {
           className="rounded-lg h-8 p-2"
         />
         <input type="date" className="rounded-lg h-8 p-2" />
-        <button className="py-3 bg-blue-500 rounded-lg cursor-pointer">
+        <button className="py-3 bg-blue-500 rounded-lg shadow-md md:w-1/3 md:m-auto">
           Submit
         </button>
       </form>
