@@ -2,7 +2,7 @@ import React from 'react';
 
 const Card = (props) => {
   return (
-    <section className="bg-slate-100 rounded-lg shadow-material mx-6 my-2 p-4">
+    <section className="bg-blue-100 rounded-md p-4 mx-4 shadow-material">
       {props.children}
     </section>
   );

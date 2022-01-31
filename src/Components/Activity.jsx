@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { MdDeleteOutline, MdEditNote } from 'react-icons/md';
 
-const Activity = ({ newTodo, newSetTodo }) => {
-  const [edit, setEdit] = useState({});
-
+const Activity = ({ newTodo, newSetTodo, newEdit, cancelEdit }) => {
   const TodoDeleteHandler = (todoId) => {
     const todoFilter = newTodo.filter((td) => {
       return td.id !== todoId;
@@ -14,36 +12,48 @@ const Activity = ({ newTodo, newSetTodo }) => {
       ? newSetTodo(todoFilter)
       : newSetTodo(newTodo);
 
-    // if (edit.id) {
-    //   cancelEditHandler();
-    // }
+    if (newEdit) {
+      cancelEdit();
+    }
   };
 
   return (
-    <section className="mx-6 my-2">
-      <ul className="grid gap-y-3 md:grid-cols-3 gap-x-3 ">
-        {newTodo.map((todo) => {
-          return (
-            <li
-              className="rounded-lg p-3 flex justify-between flex-col gap-y-2 shadow-material border-solid border-slate-500 "
-              key={todo.id}
-            >
-              <h3 className="text-lg">{todo.activity}</h3>
-              <p className="text-xs font-bold">{todo.date}</p>
-              <div className="flex justify-around">
-                <MdEditNote
-                  className="text-3xl cursor-pointer text-[#777777] hover:text-blue-500 hover:-translate-y-[.15rem] hover:duration-500"
-                  // onClick={TodoEditHandler.bind(this, todo)}
-                />
-                <MdDeleteOutline
-                  className="text-3xl cursor-pointer text-[#777777] hover:text-blue-500 hover:-translate-y-[.15rem] hover:duration-500"
-                  onClick={TodoDeleteHandler.bind(this, todo.id)}
-                />
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+    <section className="mb-8">
+      {newTodo.length > 0 ? (
+        <ul className="grid gap-y-4 md:grid-cols-3">
+          {newTodo.map((todo) => {
+            return (
+              <li
+                className="flex flex-col gap-4 bg-white shadow-material rounded-md p-4 mx-4"
+                key={todo.id}
+              >
+                <h4 className="break-all text-lg">{todo.activity}</h4>
+                <p className="text-xs">{todo.date}</p>
+                <div className="flex flex-row justify-around text-2xl cursor-pointer">
+                  <span className="bg-blue-200 rounded-2xl py-0.5 px-4 hover:bg-blue-300">
+                    <MdEditNote
+                      className="text-2xl text-center"
+                      onClick={newEdit.bind(this, todo)}
+                    />
+                  </span>
+
+                  <span className="bg-blue-200 rounded-2xl py-0.5 px-4 hover:bg-blue-300">
+                    <MdDeleteOutline
+                      className="text-2xl text-center"
+                      onClick={TodoDeleteHandler.bind(this, todo.id)}
+                    />
+                  </span>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <h1 className="text-2xl text-center text-blue-500 font-bold mt-12">
+          Activity{' '}
+          <span className="bg-slate-200 p-1 rounded-md font-light">Empty</span>
+        </h1>
+      )}
     </section>
   );
 };

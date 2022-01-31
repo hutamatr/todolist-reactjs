@@ -1,11 +1,10 @@
-import Card from './Components/Card';
-import Form from './Components/Form';
-
+import React from 'react';
 import Title from './Components/Title';
+import Form from './Components/Form';
 
 function App() {
   return (
-    <div className="flex flex-col gap-4 md:m-auto md:w-4/5">
+    <div>
       <Title />
       <Form />
     </div>
