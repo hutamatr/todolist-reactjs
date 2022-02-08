@@ -8,9 +8,7 @@ const Activity = ({ newTodo, newSetTodo, newEdit, cancelEdit }) => {
     });
 
     // eslint-disable-next-line no-restricted-globals
-    confirm('apakah ingin delete activity?')
-      ? newSetTodo(todoFilter)
-      : newSetTodo(newTodo);
+    confirm('Delete Activity?') ? newSetTodo(todoFilter) : newSetTodo(newTodo);
 
     if (newEdit) {
       cancelEdit();
