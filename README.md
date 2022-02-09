@@ -1,6 +1,6 @@
 TODO-LIST
 
-- Demo URL: [Demo](todolist-htma.netlify.app)
+- Demo URL: https://todolist-htma.netlify.app/
 
 ### Built with
 
