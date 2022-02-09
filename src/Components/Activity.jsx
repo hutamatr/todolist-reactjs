@@ -1,14 +1,16 @@
 import React from 'react';
 import { MdDeleteOutline, MdEditNote } from 'react-icons/md';
 
-const Activity = ({ newTodo, newSetTodo, newEdit, cancelEdit }) => {
+const Activity = ({ newTodo, newSetTodo, newEdit, cancelEdit, saveData }) => {
   const TodoDeleteHandler = (todoId) => {
     const todoFilter = newTodo.filter((td) => {
       return td.id !== todoId;
     });
 
     // eslint-disable-next-line no-restricted-globals
-    confirm('Delete Activity?') ? newSetTodo(todoFilter) : newSetTodo(newTodo);
+    confirm('Delete Activity?')
+      ? newSetTodo(todoFilter) || saveData(todoFilter)
+      : newSetTodo(newTodo);
 
     if (newEdit) {
       cancelEdit();

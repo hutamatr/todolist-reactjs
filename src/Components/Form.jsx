@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Activity from './Activity';
 import Card from './Card';
 
@@ -9,14 +9,18 @@ const Form = () => {
   const [edit, setEdit] = useState({});
   const [message, setMessage] = useState('');
 
-  const GenerateId = () => {
-    return Date.now();
+  const saveData = (newTodos) => {
+    localStorage.setItem('todos', JSON.stringify(newTodos));
   };
 
-  const todoObj = {
-    id: GenerateId(),
-    activity,
-    date,
+  useEffect(() => {
+    if (localStorage.getItem('todos')) {
+      setTodo(JSON.parse(localStorage.getItem('todos')));
+    }
+  }, []);
+
+  const GenerateId = () => {
+    return Date.now();
   };
 
   const submitFormHandler = (e) => {
@@ -48,12 +52,20 @@ const Form = () => {
       setActivity('');
       setDate('');
       setTodo(newUpdateTodo);
+      saveData(newUpdateTodo);
 
       return cancelEditHandler();
     } else {
-      setTodo([...todo, { ...todoObj }]);
+      const todoObj = {
+        id: GenerateId(),
+        activity,
+        date,
+      };
+      const newTodos = [...todo, { ...todoObj }];
+      setTodo(newTodos);
       setActivity('');
       setDate('');
+      saveData(newTodos);
     }
   };
 
@@ -122,6 +134,7 @@ const Form = () => {
         newSetTodo={setTodo}
         newEdit={TodoEditHandler}
         cancelEdit={cancelEditHandler}
+        saveData={saveData}
       />
     </section>
   );
