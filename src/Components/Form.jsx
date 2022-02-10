@@ -5,17 +5,21 @@ import Card from './Card';
 const Form = () => {
   const [activity, setActivity] = useState('');
   const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
   const [todo, setTodo] = useState([]);
   const [edit, setEdit] = useState({});
   const [message, setMessage] = useState('');
 
   const saveData = (newTodos) => {
-    localStorage.setItem('todos', JSON.stringify(newTodos));
+    const newTodoJSON = JSON.stringify(newTodos);
+    localStorage.setItem('todos', newTodoJSON);
   };
 
   useEffect(() => {
-    if (localStorage.getItem('todos')) {
-      setTodo(JSON.parse(localStorage.getItem('todos')));
+    const localStorageInfo = localStorage.getItem('todos');
+
+    if (localStorageInfo) {
+      setTodo(JSON.parse(localStorageInfo));
     }
   }, []);
 
@@ -41,6 +45,7 @@ const Form = () => {
         id: edit.id,
         activity,
         date,
+        time,
       };
 
       const indexTodo = todo.findIndex((todo) => {
@@ -51,6 +56,7 @@ const Form = () => {
       newUpdateTodo[indexTodo] = updateTodo;
       setActivity('');
       setDate('');
+      setTime('');
       setTodo(newUpdateTodo);
       saveData(newUpdateTodo);
 
@@ -60,11 +66,13 @@ const Form = () => {
         id: GenerateId(),
         activity,
         date,
+        time,
       };
       const newTodos = [...todo, { ...todoObj }];
       setTodo(newTodos);
       setActivity('');
       setDate('');
+      setTime('');
       saveData(newTodos);
     }
   };
@@ -77,9 +85,14 @@ const Form = () => {
     setDate(e.target.value);
   };
 
+  const timeInputHandler = (e) => {
+    setTime(e.target.value);
+  };
+
   const TodoEditHandler = (todo) => {
     setActivity(todo.activity);
     setDate(todo.date);
+    setTime(todo.time);
     setEdit(todo);
   };
 
@@ -87,6 +100,7 @@ const Form = () => {
     setEdit({});
     setActivity('');
     setDate('');
+    setTime('');
   };
 
   return (
@@ -109,6 +123,12 @@ const Form = () => {
             className="border p-2 rounded-md"
             onChange={dateInputHandler}
             value={date}
+          />
+          <input
+            type="time"
+            className="border p-2 rounded-md"
+            onChange={timeInputHandler}
+            value={time}
           />
           {message && (
             <h1 className="text-red-600 text-center font-semibold">

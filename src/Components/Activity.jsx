@@ -28,7 +28,10 @@ const Activity = ({ newTodo, newSetTodo, newEdit, cancelEdit, saveData }) => {
                 key={todo.id}
               >
                 <h4 className="break-all text-lg">{todo.activity}</h4>
-                <p className="text-xs">{todo.date}</p>
+                <div className="flex flex-row gap-x-4">
+                  <p className="text-sm">{todo.date}</p>
+                  <p className="text-sm">{todo.time} WIB</p>
+                </div>
                 <div className="flex flex-row justify-around text-2xl cursor-pointer">
                   <span className="bg-blue-300 rounded-2xl py-0.5 px-4 hover:bg-blue-400">
                     <MdEditNote
